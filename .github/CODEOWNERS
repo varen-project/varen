@@ -1,0 +1,5 @@
+# Repository code owners
+# This file defines who is responsible for reviewing changes in the repository.
+# GitHub automatically applies CODEOWNERS rules from this plain-text file.
+
+* @mohamedGaha1 @lesagep

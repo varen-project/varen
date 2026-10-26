@@ -1,0 +1,17 @@
+# TODO: 'schedules' will need to be updated to coincide with the actual TSC meeting frequency/date
+name: Schedule TSC meetings
+on:
+  workflow_dispatch:
+#  schedule:
+#    - cron: '0 0 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: pkgjs/meet@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          schedules: 2026-10-01T17:00:00.0Z/P4W
+          createWithin: P1D
+          issueTitle: "TSC Meeting <%= date.toZonedDateTimeISO('UTC').toPlainDate().toString() %>"
+          agendaLabel: meeting-agenda

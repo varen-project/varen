@@ -1,0 +1,17 @@
+# TODO: replace toMailAddress with the project's actual mailing list address once created
+name: Send TSC meeting agenda to email list
+on:
+  issues:
+    types: [opened]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: timheuer/issue-notifier@v1
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        with:
+          fromMailAddress: 'tac@lfenergy.org'
+          toMailAddress: 'varen-discussion@lists.lfenergy.org'
+          subject: 'TSC meeting agenda'
+          labelsToMonitor: 'meeting'
