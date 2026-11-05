@@ -22,6 +22,11 @@
 ## Mission Statement
 The VAREN (Vegetation and Asset Recognition of Electrical Network) project is designed to democratize mobile LiDAR–based analytics for overhead electrical distribution networks by providing openly accessible algorithms capable of automatically detecting, modeling, and classifying power distribution assets as well as surrounding vegetation. The objectives of the project are to enhance grid reliability, enable the development of high‑fidelity digital twins, and accelerate data‑driven decision making within utilities through open, collaborative, and interoperable analytical solutions.
 
+## Related Publication
+The "MED-ALGo" is associated with the following paper:
+
+- [Robust Reconstruction of Power Lines from Incomplete Mobile and Aerial LiDAR Data](https://arxiv.org/abs/2611.05197)
+
 ## Description
 VAREN is an open source library designed to extract actionable intelligence from LiDAR point clouds for the distribution networks. It includes four main algorithms:
 
