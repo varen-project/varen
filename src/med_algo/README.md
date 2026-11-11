@@ -183,3 +183,13 @@ Results are written to `output/performance/`:
 The console also prints an overall `TP / FP / FN / Precision / Recall / F1` line and a
 per-category breakdown. The `output/performance/` directory is cleaned at the start of
 each run.
+
+# Additional Sample Datasets
+
+The repository contains a minimal test dataset under `input/TestSet`.
+
+Additional real-world LAZ examples are available in the Releases section:
+
+- VAREN Sample Span Dataset v1
+
+Download and extract `varen-span-samples.7z` before running experiments on the additional datasets.
