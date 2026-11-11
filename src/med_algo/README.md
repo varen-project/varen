@@ -188,7 +188,7 @@ each run.
 
 The repository contains a minimal test dataset under `input/TestSet`.
 
-Additional real-world LAZ examples are available in the Releases section:
+Additional real-world LAZ examples are available in the Releases section [GitHub Releases page](https://github.com/varen-project/varen/releases) under : 
 
 - VAREN Sample Span Dataset v1
 

@@ -248,6 +248,14 @@ TODO : Once VAREN is created, place valid urls.
 - [issue](https://github.com/varen-project/issues)
 ```
 
+## Additional Sample Datasets
+
+Additional real-world LAZ examples are available in the Releases section [GitHub Releases page](https://github.com/varen-project/varen/releases) under : 
+
+- VAREN Sample Span Dataset v1
+
+Download and extract `varen-span-samples.7z` before running experiments on the additional datasets.
+
 ## Acknowledgments
 
 See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the list of initial contributing organizations and persons.
