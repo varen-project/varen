@@ -246,33 +246,47 @@ def run_pipeline(
     _add_timing(timings, 'cleanup_outputs', t_cleanup)
 
     # ------------------------------------------------------------------
-    # 1. Process each input file
+    # 1. Process each input file (recursively)
     # ------------------------------------------------------------------
-    for inputFile in sorted(os.listdir(input_dir)):
-        if not inputFile.endswith(('.las', '.laz')):
-            continue
-        name = os.path.splitext(inputFile)[0]
-        print('\nProcessing: ', inputFile)
+    input_root = Path(input_dir).resolve()
+    input_files = sorted(
+        {
+            p.resolve()
+            for p in input_root.rglob('*')
+            if p.is_file() and p.suffix.lower() in {'.las', '.laz'}
+        }
+    )
 
-        file_path = os.path.join(input_dir, inputFile)
-        file_size = os.path.getsize(file_path)
+    for file_path in input_files:
+        relative_path = file_path.relative_to(input_root)
+        rel_parent = relative_path.parent
+        output_subdir = Path(output_dir) / rel_parent
+        temp_subdir = Path(temp_sk_dir) / rel_parent
+        output_subdir.mkdir(parents=True, exist_ok=True)
+        temp_subdir.mkdir(parents=True, exist_ok=True)
+
+        # Keep output names stable and unique even when the same basename appears in different subfolders.
+        safe_name = str(relative_path.with_suffix('')).replace(os.sep, '__')
+        print('\nProcessing: ', relative_path.as_posix())
+
+        file_size = file_path.stat().st_size
         if file_size > MAX_FILE_SIZE:
             print(
-                f"  WARNING: '{inputFile}' ({file_size / (1024**2):.1f} MB) exceeds "
+                f"  WARNING: '{relative_path.name}' ({file_size / (1024**2):.1f} MB) exceeds "
                 f"MAX_FILE_SIZE ({MAX_FILE_SIZE // (1024**2)} MB) — skipping."
             )
             continue
 
-        las = laspy.read(file_path)
+        las = laspy.read(str(file_path))
         if LACVNET_COLUMN not in las.point_format.dimension_names:
             print(f"Column '{LACVNET_COLUMN}' does not exist in the point format of the LAS file. "
                   "Please ensure it is present for clustering.")
             continue
         las, parabolas = process_las(
-            las, name, output_dir, target_epsg, timings,
+            las, safe_name, str(output_subdir), target_epsg, timings,
             skip_reprojection=skip_reprojection,
         )
-        las.write(os.path.join(temp_sk_dir, name + '.las'))
+        las.write(str(temp_subdir / (safe_name + '.las')))
         if not parabolas.empty:
             print('\n*******NUMBER OF DETECTED PHASES:', parabolas['cluster'].nunique())
 

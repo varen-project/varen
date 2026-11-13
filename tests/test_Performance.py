@@ -141,8 +141,11 @@ def main():
     for k, v in gt_map.items():
         print(f"  {k}: {len(v)} wire(s)")
 
-    las_files = sorted(INPUT_ROOT.rglob("*.las"))
-    print(f"\nFound {len(las_files)} input .las files")
+    las_files = sorted(
+        p for p in INPUT_ROOT.rglob("*")
+        if p.is_file() and p.suffix.lower() in {".las", ".laz"}
+    )
+    print(f"\nFound {len(las_files)} input .las/.laz files")
     if not las_files:
         return
 
